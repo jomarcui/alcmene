@@ -11,7 +11,7 @@ router.route('/').get((_req, res) => {
 router.route('/add').post((req, res) => {
   const { league_id, name, sport_id } = req.body;
 
-  const newTeam = new users({
+  const newTeam = new teams({
     league_id,
     name,
     sport_id,
@@ -19,57 +19,46 @@ router.route('/add').post((req, res) => {
 
   newTeam
     .save()
-    .then((team) => res.status(201).json(team))
+    .then((team) => res.status(200).json(team))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-// router.route('/update/:id').post((req, res) => {
-//   const { id } = req.params;
+router.route('/update/:id').post((req, res) => {
+  const { id } = req.params;
 
-//   users
-//     .findById(id)
-//     .then((user) => {
-//       const { dateCreated, email, lastLogin, password, username } = req.body;
+  teams
+    .findById(id)
+    .then((team) => {
+      const { league_id, name, sport_id } = req.body;
 
-//       user.dateCreated = dateCreated;
-//       user.email = email;
-//       user.lastLogin = lastLogin;
-//       user.password = password;
-//       user.username = username;
+      team.league_id = league_id;
+      team.name = name;
+      team.sport_id = sport_id;
 
-//       user
-//         .save()
-//         .then((_user) => res.json('User was updated.'))
-//         .catch((err) => res.status(400).json(`Error: ${err}`));
-//     })
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
+      team
+        .save()
+        .then((team) => res.status(200).json(team))
+        .catch((err) => res.status(400).json(`Error: ${err}`));
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
 
-// router.route('/:id').get((req, res) => {
-//   const { id } = req.params;
+router.route('/:id').get((req, res) => {
+  const { id } = req.params;
 
-//   users
-//     .findById(id)
-//     .then((user) => res.json(user))
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
+  teams
+    .findById(id)
+    .then((team) => res.status(200).json(team))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
 
-// router.route('/:id').delete((req, res) => {
-//   const { id } = req.params;
+router.route('/:id').delete((req, res) => {
+  const { id } = req.params;
 
-//   users
-//     .findByIdAndDelete(id)
-//     .then((user) => res.json('User was deleted.'))
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
-
-// router.route('/auth').post(async (req, res) => {
-//   await users
-//     .findOne({ email: req.body.email, password: req.body.password })
-//     .then((user) => {
-//       return res.json(user);
-//     })
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
+  teams
+    .findByIdAndDelete(id)
+    .then((team) => res.status(200).json('Team was deleted.'))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
 
 module.exports = router;
