@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const teamsRoute = require('./routes/teams');
 const usersRoute = require('./routes/users');
 
 require('dotenv').config();
@@ -20,6 +21,7 @@ connection.once('open', () => {
   console.log('MongoDB database connection is established.');
 });
 
+app.use('/teams', teamsRoute);
 app.use('/users', usersRoute);
 
 app.listen(port, () => {
