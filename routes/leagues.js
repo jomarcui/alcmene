@@ -1,39 +1,43 @@
 const router = require('express').Router();
-let sports = require('../models/sports.model');
+let leagues = require('../models/leagues.model');
 
 router.route('/').get((_req, res) => {
-  sports
+  leagues
     .find()
-    .then((sports) => res.status(200).json(sports))
+    .then((leagues) => res.status(200).json(leagues))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/add').post((req, res) => {
-  const { name } = req.body;
+  const { initialism, name, sportsId } = req.body;
 
-  const newSport = new teams({
+  const newLeague = new teams({
+    initialism,
     name,
+    sportsId,
   });
 
-  newSport
+  newLeague
     .save()
-    .then((sport) => res.status(200).json(sport))
+    .then((league) => res.status(200).json(league))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/update/:id').post((req, res) => {
   const { id } = req.params;
 
-  sports
+  leagues
     .findById(id)
-    .then((sport) => {
-      const { name } = req.body;
+    .then((league) => {
+      const { initialism, name, sportsId } = req.body;
 
-      sport.name = name;
+      league.initialism = initialism;
+      league.name = name;
+      league.sportsId = sportsId;
 
-      sport
+      league
         .save()
-        .then((sport) => res.status(200).json(sport))
+        .then((league) => res.status(200).json(league))
         .catch((err) => res.status(400).json(`Error: ${err}`));
     })
     .catch((err) => res.status(400).json(`Error: ${err}`));
@@ -42,18 +46,18 @@ router.route('/update/:id').post((req, res) => {
 router.route('/:id').get((req, res) => {
   const { id } = req.params;
 
-  sports
+  leagues
     .findById(id)
-    .then((sport) => res.status(200).json(sport))
+    .then((league) => res.status(200).json(league))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.route('/:id').delete((req, res) => {
   const { id } = req.params;
 
-  sports
+  leagues
     .findByIdAndDelete(id)
-    .then((sport) => res.status(200).json('Sport was deleted.'))
+    .then((league) => res.status(200).json('Sport was deleted.'))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 

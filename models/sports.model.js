@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const sportsSchema = new Schema(
   {
+    initialism: {
+      required: true,
+      trim: true,
+      type: String,
+    },
     name: {
       required: true,
       trim: true,

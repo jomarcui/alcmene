@@ -2,20 +2,21 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const teamsSchema = new Schema(
+const leaguesSchema = new Schema(
   {
-    leagueId: {
+    initialism: {
       required: true,
-      type: Schema.Types.ObjectId,
+      trim: true,
+      type: String,
     },
     name: {
       required: true,
       trim: true,
       type: String,
     },
-    sportId: {
+    sportsId: {
       required: true,
-      type: Number,
+      type: Schema.Types.ObjectId,
     },
   },
   {
@@ -23,6 +24,6 @@ const teamsSchema = new Schema(
   }
 );
 
-const teams = mongoose.model('teams', teamsSchema);
+const sports = mongoose.model('leagues', leaguesSchema);
 
-module.exports = teams;
+module.exports = sports;

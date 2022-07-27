@@ -9,12 +9,12 @@ router.route('/').get((_req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-  const { league_id, name, sport_id } = req.body;
+  const { leagueId, name, sportId } = req.body;
 
   const newTeam = new teams({
-    league_id,
+    leagueId,
     name,
-    sport_id,
+    sportId,
   });
 
   newTeam
@@ -29,11 +29,11 @@ router.route('/update/:id').post((req, res) => {
   teams
     .findById(id)
     .then((team) => {
-      const { league_id, name, sport_id } = req.body;
+      const { leagueId, name, sportId } = req.body;
 
-      team.league_id = league_id;
+      team.leagueId = leagueId;
       team.name = name;
-      team.sport_id = sport_id;
+      team.sportId = sportId;
 
       team
         .save()
