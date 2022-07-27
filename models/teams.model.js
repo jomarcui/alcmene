@@ -15,7 +15,7 @@ const teamsSchema = new Schema(
     },
     sportId: {
       required: true,
-      type: Number,
+      type: Schema.Types.ObjectId,
     },
   },
   {
