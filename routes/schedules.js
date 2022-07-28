@@ -15,6 +15,7 @@ router.route('/add').post((req, res) => {
     date,
     leagueId,
     sportId,
+    teams,
   });
 
   newSchedule
