@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const schedulesRoute = require('./routes/schedules');
 const leaguesRoute = require('./routes/leagues');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
@@ -23,6 +24,7 @@ connection.once('open', () => {
   console.log('MongoDB database connection is established.');
 });
 
+app.use('/schedules', schedulesRoute);
 app.use('/leagues', leaguesRoute);
 app.use('/sports', sportsRoute);
 app.use('/teams', teamsRoute);
