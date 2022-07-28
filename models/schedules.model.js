@@ -27,12 +27,17 @@ const schedulesSchema = new Schema(
       required: true,
       type: Schema.Types.ObjectId,
     },
-    teams: teamsSchema,
+    teams: {
+      required: true,
+      type: Schema.Types.Mixed
+    },
   },
   {
     timestamps: true,
   }
 );
+
+schedulesSchema.index({ date: 1, leagueId: 1, sportId: 1, teams: 1 }, { unique: true });
 
 const schedules = mongoose.model('schedules', schedulesSchema);
 
