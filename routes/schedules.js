@@ -11,10 +11,11 @@ router.route('/').get((_req, res) => {
 router.route('/add').post((req, res) => {
   const { date, leagueId, sportId, teams } = req.body;
 
-  const newSchedule = new teams({
+  const newSchedule = new schedules({
     date,
     leagueId,
     sportId,
+    teams,
   });
 
   newSchedule

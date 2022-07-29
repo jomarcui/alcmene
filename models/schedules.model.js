@@ -2,6 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const teamsSchema = new Schema({
+  home: {
+    required: true,
+    type: Schema.Types.ObjectId,
+  },
+  visitor: {
+    required: true,
+    type: Schema.Types.ObjectId,
+  }
+});
+
 const schedulesSchema = new Schema(
   {
     date: {
@@ -16,12 +27,17 @@ const schedulesSchema = new Schema(
       required: true,
       type: Schema.Types.ObjectId,
     },
-    teams: [Schema.Types.Mixed],
+    teams: {
+      required: true,
+      type: Schema.Types.Mixed
+    },
   },
   {
     timestamps: true,
   }
 );
+
+schedulesSchema.index({ date: 1, leagueId: 1, sportId: 1, teams: 1 }, { unique: true });
 
 const schedules = mongoose.model('schedules', schedulesSchema);
 
