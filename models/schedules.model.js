@@ -2,17 +2,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const teamsSchema = new Schema({
-  home: {
-    required: true,
-    type: Schema.Types.ObjectId,
-  },
-  visitor: {
-    required: true,
-    type: Schema.Types.ObjectId,
-  }
-});
-
 const schedulesSchema = new Schema(
   {
     date: {
