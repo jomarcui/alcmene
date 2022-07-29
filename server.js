@@ -7,6 +7,7 @@ const leaguesRoute = require('./routes/leagues');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
 const usersRoute = require('./routes/users');
+const { WebSocketServer } = require('ws');
 
 require('dotenv').config();
 
@@ -30,6 +31,24 @@ app.use('/sports', sportsRoute);
 app.use('/teams', teamsRoute);
 app.use('/users', usersRoute);
 
-app.listen(port, () => {
+const server = require('http').createServer(app);
+
+const wss = new WebSocketServer({ server });
+
+wss.on('connection', (ws) => {
+  console.log('A new client has connected.');
+
+  ws.send('Welcome, new client!');
+
+  ws.on('message', (message) => {
+    console.log(`${message} received.`);
+  });
+});
+
+// app.listen(port, () => {
+//   console.log(`Server is running in port: ${port}`);
+// });
+
+server.listen(port, () => {
   console.log(`Server is running in port: ${port}`);
 });
