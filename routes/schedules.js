@@ -47,6 +47,24 @@ router.route('/update/:id').post((req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+router.route('/update/status/:id').patch((req, res) => {
+  const { id } = req.params;
+
+  schedules
+    .findById(id)
+    .then((schedule) => {
+      const { status } = req.body;
+      
+      schedule.status = status;
+
+      schedule
+        .save()
+        .then((schedule) => res.status(200).json(schedule))
+        .catch((err) => res.status(400).json(`Error: ${err}`));
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
+
 router.route('/:id').get((req, res) => {
   const { id } = req.params;
 
