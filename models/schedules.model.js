@@ -27,6 +27,10 @@ const schedulesSchema = new Schema(
       required: true,
       type: Schema.Types.ObjectId,
     },
+    status: {
+      required: true,
+      type: String,
+    },
     teams: {
       required: true,
       type: Schema.Types.Mixed

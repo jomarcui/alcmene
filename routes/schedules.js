@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Status } = require('../enums');
 let schedules = require('../models/schedules.model');
 
 router.route('/').get((_req, res) => {
@@ -16,6 +17,7 @@ router.route('/add').post((req, res) => {
     leagueId,
     sportId,
     teams,
+    status: Status.Soon
   });
 
   newSchedule
@@ -30,11 +32,12 @@ router.route('/update/:id').post((req, res) => {
   schedules
     .findById(id)
     .then((schedule) => {
-      const { date, leagueId, sportId, teams } = req.body;
+      const { date, leagueId, sportId, status, teams } = req.body;
 
       schedule.date = date;
       schedule.leagueId = leagueId;
       schedule.sportId = sportId;
+      schedule.status = status;
       schedule.teams = teams;
 
       schedule
