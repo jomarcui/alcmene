@@ -12,6 +12,10 @@ const schedulesSchema = new Schema(
       required: true,
       type: Schema.Types.ObjectId,
     },
+    odds: {
+      required: true,
+      type: Number,
+    },
     sportId: {
       required: true,
       type: Schema.Types.ObjectId,
@@ -22,7 +26,7 @@ const schedulesSchema = new Schema(
     },
     teams: {
       required: true,
-      type: Schema.Types.Mixed
+      type: Schema.Types.Mixed,
     },
   },
   {
@@ -30,7 +34,10 @@ const schedulesSchema = new Schema(
   }
 );
 
-schedulesSchema.index({ date: 1, leagueId: 1, sportId: 1, teams: 1 }, { unique: true });
+schedulesSchema.index(
+  { date: 1, leagueId: 1, sportId: 1, teams: 1 },
+  { unique: true }
+);
 
 const schedules = mongoose.model('schedules', schedulesSchema);
 

@@ -9,14 +9,15 @@ router.route('/').get((_req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-  const { date, leagueId, sportId, status, teams } = req.body;
+  const { date, leagueId, odds, sportId, status, teams } = req.body;
 
   const newSchedule = new schedules({
     date,
     leagueId,
+    odds,
     sportId,
     teams,
-    status
+    status,
   });
 
   newSchedule
@@ -31,13 +32,32 @@ router.route('/update/:id').post((req, res) => {
   schedules
     .findById(id)
     .then((schedule) => {
-      const { date, leagueId, sportId, status, teams } = req.body;
+      const { date, leagueId, odds, sportId, status, teams } = req.body;
 
       schedule.date = date;
       schedule.leagueId = leagueId;
+      schedule.odds = odds;
       schedule.sportId = sportId;
       schedule.status = status;
       schedule.teams = teams;
+
+      schedule
+        .save()
+        .then((schedule) => res.status(200).json(schedule))
+        .catch((err) => res.status(400).json(`Error: ${err}`));
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
+
+router.route('/update/odds/:id').patch((req, res) => {
+  const { id } = req.params;
+
+  schedules
+    .findById(id)
+    .then((schedule) => {
+      const { odds } = req.body;
+
+      schedule.odds = odds;
 
       schedule
         .save()
@@ -54,7 +74,7 @@ router.route('/update/status/:id').patch((req, res) => {
     .findById(id)
     .then((schedule) => {
       const { status } = req.body;
-      
+
       schedule.status = status;
 
       schedule
