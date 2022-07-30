@@ -12,10 +12,6 @@ const schedulesSchema = new Schema(
       required: true,
       type: Schema.Types.ObjectId,
     },
-    odds: {
-      required: true,
-      type: Number,
-    },
     sportId: {
       required: true,
       type: Schema.Types.ObjectId,

@@ -9,12 +9,11 @@ router.route('/').get((_req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-  const { date, leagueId, odds, sportId, status, teams } = req.body;
+  const { date, leagueId, sportId, status, teams } = req.body;
 
   const newSchedule = new schedules({
     date,
     leagueId,
-    odds,
     sportId,
     teams,
     status,
@@ -32,11 +31,10 @@ router.route('/update/:id').post((req, res) => {
   schedules
     .findById(id)
     .then((schedule) => {
-      const { date, leagueId, odds, sportId, status, teams } = req.body;
+      const { date, leagueId, sportId, status, teams } = req.body;
 
       schedule.date = date;
       schedule.leagueId = leagueId;
-      schedule.odds = odds;
       schedule.sportId = sportId;
       schedule.status = status;
       schedule.teams = teams;
@@ -55,9 +53,9 @@ router.route('/update/odds/:id').patch((req, res) => {
   schedules
     .findById(id)
     .then((schedule) => {
-      const { odds } = req.body;
+      const { teams } = req.body;
 
-      schedule.odds = odds;
+      schedule.teams = teams;
 
       schedule
         .save()
