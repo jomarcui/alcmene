@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const schedulesRoute = require('./routes/schedules');
 const leaguesRoute = require('./routes/leagues');
+const matchesRoute = require('./routes/matches');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
 const usersRoute = require('./routes/users');
@@ -27,6 +28,7 @@ connection.once('open', () => {
 
 app.use('/schedules', schedulesRoute);
 app.use('/leagues', leaguesRoute);
+app.use('/matches', matchesRoute);
 app.use('/sports', sportsRoute);
 app.use('/teams', teamsRoute);
 app.use('/users', usersRoute);
