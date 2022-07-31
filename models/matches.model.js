@@ -6,22 +6,22 @@ const matchesSchema = new Schema(
   {
     date: Date,
     league: {
-      id: String,
+      id: Schema.Types.ObjectId,
       name: String,
     },
     sport: {
-      id: String,
+      id: Schema.Types.ObjectId,
       name: String,
     },
     status: String,
     teams: {
       home: {
-        id: String,
+        id: Schema.Types.ObjectId,
         name: String,
         odds: Number,
       },
       visitor: {
-        id: String,
+        id: Schema.Types.ObjectId,
         name: String,
         odds: Number,
       },
