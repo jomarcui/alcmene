@@ -23,7 +23,7 @@ router.route('/:id').get(async (req, res) => {
         id: league._id,
         name: league.name,
       },
-      sports: {
+      sport: {
         id: sport._id,
         name: sport.name,
       },
