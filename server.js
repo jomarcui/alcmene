@@ -1,15 +1,18 @@
-const cors = require('cors');
 const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const { WebSocketServer } = require('ws');
 const errorHandler = require('./middleware/errorHandler');
 const { logger } = require('./middleware/eventLogger');
 const verifyJWT = require('./middleware/verifyJWT');
 
-const authRoute = require('./routes/api/auth');
+const authRoute = require('./routes/auth');
 const leaguesRoute = require('./routes/leagues');
+const logoutRoute = require('./routes/logout');
 const matchesRoute = require('./routes/api/matches');
-const registrationsRoute = require('./routes/api/registrations');
+const refreshRoute = require('./routes/refresh');
+const registrationsRoute = require('./routes/registrations');
 const schedulesRoute = require('./routes/schedules');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
@@ -19,9 +22,11 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(cors());
 app.use(errorHandler);
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 
 mongoose.connect(process.env.ATLAS_URI);
@@ -34,6 +39,8 @@ connection.once('open', () =>
 
 // TODO: Put routes in a separate file
 app.use('/auth', authRoute);
+app.use('/logout', logoutRoute);
+app.use('/refresh', refreshRoute);
 app.use('/registrations', registrationsRoute);
 app.use('/schedules', schedulesRoute);
 

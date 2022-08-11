@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { handleNewUser } = require('../../controllers/registrationsController');
+const { handleNewUser } = require('../controllers/registrationsController');
 
 router.route('/').post(handleNewUser);
 

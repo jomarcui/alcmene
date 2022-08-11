@@ -12,18 +12,29 @@ const handleLogin = (req, res) => {
     const isPasswordsMatch = await bcrypt.compare(password, user.password);
 
     if (isPasswordsMatch) {
-      const accessToken = jwt.sign({ "mobileNumber": user.mobileNumber }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '59s' });
+      const accessToken = jwt.sign(
+        { mobileNumber: user.mobileNumber },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: '59s' }
+      );
 
-      const refreshToken = jwt.sign({ "mobileNumber": user.mobileNumber }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+      const refreshToken = jwt.sign(
+        { mobileNumber: user.mobileNumber },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: '1d' }
+      );
 
       user.refreshToken = refreshToken;
 
-      user
-        .save()
-        .then(() => {
-          res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
-          res.status(200).json({ accessToken });
+      user.save().then(() => {
+        res.cookie('jwt', refreshToken, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000,
+          sameSite: 'None',
+          secure: true,
         });
+        res.status(200).json({ accessToken });
+      });
     } else {
       res.sendStatus(401);
     }
@@ -31,5 +42,5 @@ const handleLogin = (req, res) => {
 };
 
 module.exports = {
-  handleLogin
-}
+  handleLogin,
+};
