@@ -28,6 +28,9 @@ const usersSchema = new Schema(
       trim: true,
       type: String,
     },
+    refreshToken: {
+      type: String,
+    }
   },
   {
     timestamps: true,

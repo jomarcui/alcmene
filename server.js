@@ -1,10 +1,10 @@
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const errorHandler = require('./middleware/errorHandler');
-
-const { logger } = require('./middleware/eventLogger');
 const { WebSocketServer } = require('ws');
+const errorHandler = require('./middleware/errorHandler');
+const { logger } = require('./middleware/eventLogger');
+const verifyJWT = require('./middleware/verifyJWT');
 
 const authRoute = require('./routes/api/auth');
 const leaguesRoute = require('./routes/leagues');
@@ -34,10 +34,12 @@ connection.once('open', () =>
 
 // TODO: Put routes in a separate file
 app.use('/auth', authRoute);
+app.use('/registrations', registrationsRoute);
 app.use('/schedules', schedulesRoute);
+
+app.use(verifyJWT);
 app.use('/leagues', leaguesRoute);
 app.use('/matches', matchesRoute);
-app.use('/registrations', registrationsRoute);
 app.use('/sports', sportsRoute);
 app.use('/teams', teamsRoute);
 app.use('/users', usersRoute);

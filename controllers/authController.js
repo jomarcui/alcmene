@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const users = require('../models/users');
 
@@ -7,11 +8,22 @@ const handleLogin = (req, res) => {
 
   users.findOne({ mobileNumber: mobileNumber }).then(async (user) => {
     if (!user) return res.sendStatus(401);
-    
-    const isPasswordsMatched = await bcrypt.compare(password, user.password);
 
-    if (isPasswordsMatched) {
-      res.sendStatus(200);
+    const isPasswordsMatch = await bcrypt.compare(password, user.password);
+
+    if (isPasswordsMatch) {
+      const accessToken = jwt.sign({ "mobileNumber": user.mobileNumber }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '59s' });
+
+      const refreshToken = jwt.sign({ "mobileNumber": user.mobileNumber }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+
+      user.refreshToken = refreshToken;
+
+      user
+        .save()
+        .then(() => {
+          res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000});
+          res.status(200).json({ accessToken });
+        });
     } else {
       res.sendStatus(401);
     }
