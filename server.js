@@ -7,7 +7,7 @@ const { WebSocketServer } = require('ws');
 
 const schedulesRoute = require('./routes/schedules');
 const leaguesRoute = require('./routes/leagues');
-const matchesRoute = require('./routes/matches');
+const matchesRoute = require('./routes/api/matches');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
 const usersRoute = require('./routes/api/users');
@@ -26,9 +26,9 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri);
 
 const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log('MongoDB database connection is established.');
-});
+connection.once('open', () =>
+  console.log('MongoDB database connection is established.')
+);
 
 app.use('/schedules', schedulesRoute);
 app.use('/leagues', leaguesRoute);
