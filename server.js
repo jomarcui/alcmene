@@ -6,10 +6,11 @@ const errorHandler = require('./middleware/errorHandler');
 const { logger } = require('./middleware/eventLogger');
 const { WebSocketServer } = require('ws');
 
-const schedulesRoute = require('./routes/schedules');
+const authRoute = require('./routes/api/auth');
 const leaguesRoute = require('./routes/leagues');
 const matchesRoute = require('./routes/api/matches');
 const registrationsRoute = require('./routes/api/registrations');
+const schedulesRoute = require('./routes/schedules');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
 const usersRoute = require('./routes/api/users');
@@ -32,6 +33,7 @@ connection.once('open', () =>
 );
 
 // TODO: Put routes in a separate file
+app.use('/auth', authRoute);
 app.use('/schedules', schedulesRoute);
 app.use('/leagues', leaguesRoute);
 app.use('/matches', matchesRoute);
