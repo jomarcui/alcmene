@@ -24,6 +24,14 @@ const leaguesSchema = new Schema(
   }
 );
 
+leaguesSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+leaguesSchema.set('toJSON', {
+  virtuals: true,
+});
+
 const sports = mongoose.model('leagues', leaguesSchema);
 
 module.exports = sports;

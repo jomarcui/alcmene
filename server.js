@@ -3,9 +3,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { WebSocketServer } = require('ws');
+
+// Middlewares
 const errorHandler = require('./middleware/errorHandler');
-const { logger } = require('./middleware/eventLogger');
 const verifyJWT = require('./middleware/verifyJWT');
+const { logger } = require('./middleware/eventLogger');
 
 require('dotenv').config();
 
@@ -33,7 +35,7 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/register', require('./routes/register'));
 app.use('/schedules', require('./routes/api/schedules'));
 
-app.use(verifyJWT);
+// app.use(verifyJWT);
 app.use('/leagues', require('./routes/leagues'));
 app.use('/matches', require('./routes/api/matches'));
 app.use('/sports', require('./routes/sports'));

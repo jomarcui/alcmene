@@ -14,7 +14,7 @@ const {
 
 router
   .route('/')
-  .get(verifyRoles(Roles.ADMIN), getSchedules)
+  .get(getSchedules)
   .post(verifyRoles(Roles.ADMIN), createSchedule);
 
 router

@@ -42,6 +42,14 @@ const getSchedules = (_req, res) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
+// const getSchedulesByDate = (req, res) => {
+//   const { date } = req.date;
+
+//   schedules.find({ date }).then((schedules) => {
+//     if (!schedules)
+//   });
+// };
+
 const updateOdds = (req, res) => {
   const { id } = req.params;
 
