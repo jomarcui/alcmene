@@ -12,7 +12,7 @@ const leaguesRoute = require('./routes/leagues');
 const logoutRoute = require('./routes/logout');
 const matchesRoute = require('./routes/api/matches');
 const refreshRoute = require('./routes/refresh');
-const registrationsRoute = require('./routes/registrations');
+const registerRoute = require('./routes/register');
 const schedulesRoute = require('./routes/schedules');
 const sportsRoute = require('./routes/sports');
 const teamsRoute = require('./routes/teams');
@@ -41,7 +41,7 @@ connection.once('open', () =>
 app.use('/auth', authRoute);
 app.use('/logout', logoutRoute);
 app.use('/refresh', refreshRoute);
-app.use('/registrations', registrationsRoute);
+app.use('/register', registerRoute);
 app.use('/schedules', schedulesRoute);
 
 app.use(verifyJWT);

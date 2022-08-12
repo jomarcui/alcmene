@@ -12,8 +12,15 @@ const handleLogin = (req, res) => {
     const isPasswordsMatch = await bcrypt.compare(password, user.password);
 
     if (isPasswordsMatch) {
+      const roles = Object.values(user.roles);
+
       const accessToken = jwt.sign(
-        { mobileNumber: user.mobileNumber },
+        {
+          userInfo: {
+            roles,
+            mobileNumber: user.mobileNumber,
+          }
+        },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '59s' }
       );

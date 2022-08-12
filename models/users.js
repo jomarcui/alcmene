@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Roles = require('../config/roles')
 
 const Schema = mongoose.Schema;
 
@@ -30,6 +31,10 @@ const usersSchema = new Schema(
     },
     refreshToken: {
       type: String,
+    },
+    roles: {
+      required: true,
+      type: [Number]
     }
   },
   {

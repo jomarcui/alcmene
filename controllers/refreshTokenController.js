@@ -19,9 +19,14 @@ const handleRefreshToken = (req, res) => {
         if (err || user.mobileNumber !== decoded.mobileNumber)
           return res.sendStatus(403);
 
+        const roles = Object.values(user.roles);
+
         const accessToken = jwt.sign(
           {
-            mobileNumber: decoded.mobileNumber,
+            userInfo: {
+              roles,
+              mobileNumber: decoded.mobileNumber,
+            }
           },
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: '59s' }

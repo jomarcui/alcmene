@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const Roles = require('../../config/roles');
+const verifyRoles = require('../../middleware/verifyRoles');
 
 const {
   createNewUser,
@@ -10,10 +12,10 @@ const {
 
 router
   .route('/')
-  .get(getAllUsers)
-  .post(createNewUser)
-  .put(updateUser)
-  .delete(deleteUser);
+  .delete(verifyRoles(Roles.ADMIN), deleteUser)
+  .get(verifyRoles(Roles.ADMIN), getAllUsers)
+  .post(verifyRoles(Roles.ADMIN),createNewUser)
+  .put(verifyRoles(Roles.ADMIN), updateUser);
 
 router.route('/:id').get(getUserById);
 

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 
+const Roles = require('../config/roles');
 const users = require('../models/users');
 
 const handleNewUser = (req, res) => {
@@ -13,6 +14,7 @@ const handleNewUser = (req, res) => {
       lastName,
       mobileNumber,
       password,
+      roles: [Roles.USER]
     });
 
     try {
