@@ -23,6 +23,14 @@ const teamsSchema = new Schema(
   }
 );
 
+teamsSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+teamsSchema.set('toJSON', {
+  virtuals: true,
+});
+
 const teams = mongoose.model('teams', teamsSchema);
 
 module.exports = teams;

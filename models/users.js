@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Roles = require('../config/roles')
+const Roles = require('../config/roles');
 
 const Schema = mongoose.Schema;
 
@@ -34,13 +34,21 @@ const usersSchema = new Schema(
     },
     roles: {
       required: true,
-      type: [Number]
-    }
+      type: [Number],
+    },
   },
   {
     timestamps: true,
   }
 );
+
+usersSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+usersSchema.set('toJSON', {
+  virtuals: true,
+});
 
 const users = mongoose.model('users', usersSchema);
 

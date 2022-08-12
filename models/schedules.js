@@ -35,6 +35,14 @@ schedulesSchema.index(
   { unique: true }
 );
 
+schedulesSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+schedulesSchema.set('toJSON', {
+  virtuals: true,
+});
+
 const schedules = mongoose.model('schedules', schedulesSchema);
 
 module.exports = schedules;

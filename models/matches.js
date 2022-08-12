@@ -32,6 +32,14 @@ const matchesSchema = new Schema(
   }
 );
 
+matchesSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+matchesSchema.set('toJSON', {
+  virtuals: true,
+});
+
 const matches = mongoose.model('matches', matchesSchema);
 
 module.exports = matches;

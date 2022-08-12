@@ -12,14 +12,11 @@ const {
   updateStatus,
 } = require('../../controllers/schedulesController');
 
-router
-  .route('/')
-  .get(getSchedules)
-  .post(verifyRoles(Roles.ADMIN), createSchedule);
+router.route('/').get(getSchedules).post(createSchedule);
 
 router
   .route('/:id')
-  .delete(verifyRoles(Roles.ADMIN), deleteSchedule)
+  .delete(deleteSchedule)
   .get(verifyRoles(Roles.ADMIN), getScheduleById)
   .put(verifyRoles(Roles.ADMIN), updateSchedule);
 

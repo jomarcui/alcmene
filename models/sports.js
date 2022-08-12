@@ -20,6 +20,14 @@ const sportsSchema = new Schema(
   }
 );
 
+sportsSchema.virtual('id').get(function () {
+  return this._id.toHexString();
+});
+
+sportsSchema.set('toJSON', {
+  virtuals: true,
+});
+
 const sports = mongoose.model('sports', sportsSchema);
 
 module.exports = sports;
