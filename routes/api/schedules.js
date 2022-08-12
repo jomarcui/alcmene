@@ -5,6 +5,7 @@ const verifyRoles = require('../../middleware/verifyRoles');
 const {
   createSchedule,
   deleteSchedule,
+  getLeagueSchedulesByDate,
   getScheduleById,
   getSchedules,
   updateOdds,
@@ -22,5 +23,7 @@ router
 
 router.route('/:id/odds').patch(verifyRoles(Roles.ADMIN), updateOdds);
 router.route('/:id/status').patch(verifyRoles(Roles.ADMIN), updateStatus);
+
+router.route('/league/:leagueId/:date').get(getLeagueSchedulesByDate);
 
 module.exports = router;

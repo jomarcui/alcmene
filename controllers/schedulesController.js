@@ -1,3 +1,5 @@
+const { endOfDay, startOfDay } = require('date-fns');
+
 const schedules = require('../models/schedules');
 
 const createSchedule = (req, res) => {
@@ -26,6 +28,21 @@ const deleteSchedule = (req, res) => {
     .catch((err) => res.status(400).json({ err }));
 };
 
+const getLeagueSchedulesByDate = (req, res) => {
+  const { date, leagueId } = req.params;
+
+  schedules
+    .find({
+      date: {
+        $gte: startOfDay(new Date(date)),
+        $lte: endOfDay(new Date(date)),
+      },
+      leagueId,
+    })
+    .then((schedules) => res.status(200).json(schedules))
+    .catch((err) => res.status(400).json({ err }));
+};
+
 const getScheduleById = (req, res) => {
   const { id } = req.params;
 
@@ -41,14 +58,6 @@ const getSchedules = (_req, res) => {
     .then((schedules) => res.status(200).json(schedules))
     .catch((err) => res.status(400).json({ err }));
 };
-
-// const getSchedulesByDate = (req, res) => {
-//   const { date } = req.date;
-
-//   schedules.find({ date }).then((schedules) => {
-//     if (!schedules)
-//   });
-// };
 
 const updateOdds = (req, res) => {
   const { id } = req.params;
@@ -109,6 +118,7 @@ const updateStatus = (req, res) => {
 module.exports = {
   createSchedule,
   deleteSchedule,
+  getLeagueSchedulesByDate,
   getScheduleById,
   getSchedules,
   updateOdds,
