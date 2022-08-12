@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let leagues = require('../models/leagues.model');
+let leagues = require('../models/leagues');
 
 router.route('/').get((_req, res) => {
   leagues

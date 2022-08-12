@@ -14,7 +14,7 @@ const leaguesSchema = new Schema(
       trim: true,
       type: String,
     },
-    sportsId: {
+    sportId: {
       required: true,
       type: Schema.Types.ObjectId,
     },

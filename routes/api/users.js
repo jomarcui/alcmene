@@ -3,7 +3,7 @@ const Roles = require('../../config/roles');
 const verifyRoles = require('../../middleware/verifyRoles');
 
 const {
-  createNewUser,
+  createUser,
   deleteUser,
   getAllUsers,
   getUserById,
@@ -12,11 +12,13 @@ const {
 
 router
   .route('/')
-  .delete(verifyRoles(Roles.ADMIN), deleteUser)
   .get(verifyRoles(Roles.ADMIN), getAllUsers)
-  .post(verifyRoles(Roles.ADMIN),createNewUser)
-  .put(verifyRoles(Roles.ADMIN), updateUser);
+  .post(verifyRoles(Roles.ADMIN), createUser);
 
-router.route('/:id').get(getUserById);
+router
+  .route('/:id')
+  .delete(verifyRoles(Roles.ADMIN), deleteUser)
+  .get(verifyRoles(Roles.ADMIN), getUserById)
+  .put(verifyRoles(Roles.ADMIN), updateUser);
 
 module.exports = router;

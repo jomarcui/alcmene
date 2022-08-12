@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let teams = require('../models/teams.model');
+let teams = require('../models/teams');
 
 router.route('/').get((_req, res) => {
   teams

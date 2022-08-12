@@ -1,7 +1,7 @@
-const leagues = require('../models/leagues.model');
-const schedules = require('../models/schedules.model');
-const sports = require('../models/sports.model');
-const teams = require('../models/teams.model');
+const leagues = require('../models/leagues');
+const schedules = require('../models/schedules');
+const sports = require('../models/sports');
+const teams = require('../models/teams');
 
 const getMatchById = async (req, res) => {
   const { id } = req.params;

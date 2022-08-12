@@ -7,17 +7,6 @@ const errorHandler = require('./middleware/errorHandler');
 const { logger } = require('./middleware/eventLogger');
 const verifyJWT = require('./middleware/verifyJWT');
 
-const authRoute = require('./routes/auth');
-const leaguesRoute = require('./routes/leagues');
-const logoutRoute = require('./routes/logout');
-const matchesRoute = require('./routes/api/matches');
-const refreshRoute = require('./routes/refresh');
-const registerRoute = require('./routes/register');
-const schedulesRoute = require('./routes/schedules');
-const sportsRoute = require('./routes/sports');
-const teamsRoute = require('./routes/teams');
-const usersRoute = require('./routes/api/users');
-
 require('dotenv').config();
 
 const app = express();
@@ -38,18 +27,18 @@ connection.once('open', () =>
 );
 
 // TODO: Put routes in a separate file
-app.use('/auth', authRoute);
-app.use('/logout', logoutRoute);
-app.use('/refresh', refreshRoute);
-app.use('/register', registerRoute);
-app.use('/schedules', schedulesRoute);
+app.use('/auth', require('./routes/auth'));
+app.use('/logout', require('./routes/logout'));
+app.use('/refresh', require('./routes/refresh'));
+app.use('/register', require('./routes/register'));
+app.use('/schedules', require('./routes/api/schedules'));
 
 app.use(verifyJWT);
-app.use('/leagues', leaguesRoute);
-app.use('/matches', matchesRoute);
-app.use('/sports', sportsRoute);
-app.use('/teams', teamsRoute);
-app.use('/users', usersRoute);
+app.use('/leagues', require('./routes/leagues'));
+app.use('/matches', require('./routes/api/matches'));
+app.use('/sports', require('./routes/sports'));
+app.use('/teams', require('./routes/teams'));
+app.use('/users', require('./routes/api/users'));
 
 const server = require('http').createServer(app);
 

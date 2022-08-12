@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let sports = require('../models/sports.model');
+let sports = require('../models/sports');
 
 router.route('/').get((_req, res) => {
   sports
