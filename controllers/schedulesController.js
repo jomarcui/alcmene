@@ -33,11 +33,11 @@ const getLeagueSchedulesByDate = (req, res) => {
 
   schedules
     .find({
+      leagueId,
       date: {
         $gte: startOfDay(new Date(date)),
         $lte: endOfDay(new Date(date)),
       },
-      leagueId,
     })
     .then((schedules) => res.status(200).json(schedules))
     .catch((err) => res.status(400).json({ err }));
