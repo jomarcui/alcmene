@@ -19,7 +19,7 @@ const handleLogin = (req, res) => {
           userInfo: {
             roles,
             mobileNumber: user.mobileNumber,
-          }
+          },
         },
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: '59s' }
@@ -40,7 +40,14 @@ const handleLogin = (req, res) => {
           sameSite: 'None',
           secure: true,
         });
-        res.status(200).json({ accessToken });
+
+        res
+          .status(200)
+          .json({
+            accessToken,
+            refreshToken,
+            name: `${user.firstName} ${user.lastName}`,
+          });
       });
     } else {
       res.sendStatus(401);
