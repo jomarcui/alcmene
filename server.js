@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 
-mongoose.connect(process.env.ATLAS_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 const connection = mongoose.connection;
 
