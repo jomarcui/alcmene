@@ -25,18 +25,20 @@ const getMatchById = async (req, res) => {
         id: sport._id,
         name: sport.name,
       },
-      teams: {
-        home: {
+      teams: [
+        {
           id: home._id,
           name: home.name,
           odds: schedule.teams.home.odds,
+          side: 0
         },
-        visitor: {
+        {
           id: visitor._id,
           name: visitor.name,
           odds: schedule.teams.visitor.odds,
+          side: 1
         },
-      },
+      ],
     };
 
     return res.status(200).json(match);
