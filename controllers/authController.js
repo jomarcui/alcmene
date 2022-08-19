@@ -41,13 +41,12 @@ const handleLogin = (req, res) => {
           secure: true,
         });
 
-        res
-          .status(200)
-          .json({
-            accessToken,
-            refreshToken,
-            name: `${user.firstName} ${user.lastName}`,
-          });
+        res.status(200).json({
+          accessToken,
+          refreshToken,
+          id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
+        });
       });
     } else {
       res.sendStatus(401);
